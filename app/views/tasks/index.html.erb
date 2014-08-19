@@ -1,0 +1,39 @@
+<h1>Listing Tasks</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Reminder Date:</th>
+      <th>Completed?</th>
+      <th>Notes</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.description %></td>
+        <td><%= task.reminder_date %></td>
+        <% if task.done == true %>
+        <td><span class="done"><%= "Yes" %></span></td>
+        <% elsif task.done == false %>
+          <td><span class="not-done"><%= "No" %></span></td>
+          <% end %>
+        <td><%= task.notes %></td>
+        <td><%= link_to 'Show', task %></td>
+        <td><%= link_to '', edit_task_path(task), class: "fa fa-pencil-square-o" %></td> 
+        <!-- <td><%= link_to 'Delete', task, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+        <td><%= link_to task, method: :delete do %>
+            <i class="fa fa-trash-o"></i>
+          <%end%>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Task', new_task_path %>
